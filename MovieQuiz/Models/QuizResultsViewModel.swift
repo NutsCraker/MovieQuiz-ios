@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 struct QuizResultsViewModel {
-    let title: String
+    let title: UIImage
     let text: String
     let buttonText: String
 }

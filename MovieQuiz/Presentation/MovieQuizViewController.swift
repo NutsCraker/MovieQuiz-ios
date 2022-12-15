@@ -13,6 +13,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     @IBOutlet private var counterLabel: UILabel!
     @IBOutlet private weak var noButton: UIButton!
     @IBOutlet private weak var YesButton: UIButton!
+    @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     
     @IBAction private func yesButtonClicked(_ sender: Any)
     {
@@ -20,6 +21,8 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         let givenAnswer = true
         showAnswerResult(isCorrect: givenAnswer == currentQuestion.correctAnswer)
     }
+    
+   
     @IBAction private func noButtonClicked(_ sender: Any)
     {
         guard let currentQuestion = currentQuestion else { return }
@@ -34,15 +37,47 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             self?.show(quiz: viewModel)
         }        
     }
+    func didFailToLoadData(with error: Error) {
+        showNetworkError(messange: error.localizedDescription) // возьмём в качестве сообщения описание ошибки
+    }
+    
+    func didLoadDataFromServer() {
+        activityIndicator.isHidden = true // скрываем индикатор загрузки
+        questionFactory?.requestNextQuestion()
+    }
+    private func showLoadingIndicator() {
+        activityIndicator.isHidden = false
+        activityIndicator.startAnimating()
+    }
+    
+    private func hideLoadingIndicator() {
+        activityIndicator.isHidden = true
+        activityIndicator.stopAnimating()
+    }
+    
+    
     override func viewDidLoad(){
         super.viewDidLoad()
         imageView.layer.masksToBounds = true
         imageView.layer.cornerRadius = 20
         alertPresenter = AlertPresenter(viewController: self)
-        questionFactory = QuestionFactory(delegate: self)
+        //questionFactory = QuestionFactory(delegate: self)
+        questionFactory = QuestionFactory(moviesLoader: MoviesLoader(), delegate: self)
         questionFactory?.requestNextQuestion()
         statisticService = StatisticServiceImplementation()
+        questionFactory?.loadData()
+        showLoadingIndicator()
     }
+    private func showNetworkError(messange: String) {
+            hideLoadingIndicator()
+            
+        let alertData = AlertModel(title: "Ошибка", message: messange, buttonText: "Попробовать еще раз")
+        {  [weak self] _ in
+                guard let self = self else { return }
+                self.questionFactory?.loadData()
+            }
+        alertPresenter?.show(result: alertData)
+        }
     private func showNextQuestionOrResults(){
         if currentQuestionIndex == questionsAmount - 1{
             statisticService?.store(correct: self.correctAnswers, total: self.questionsAmount)
@@ -81,7 +116,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     }
     private func convert(model: QuizQuestion) -> QuizStepViewModel {
         return QuizStepViewModel(
-            image: UIImage(named: model.image) ?? UIImage(),
+            image: UIImage(data: model.image) ?? UIImage(),
             question: model.text,
             questionNumber: "\(currentQuestionIndex + 1)/\(questionsAmount)")
     }
@@ -105,5 +140,6 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             self.showNextQuestionOrResults()
         }
     }
+ 
 }
 
