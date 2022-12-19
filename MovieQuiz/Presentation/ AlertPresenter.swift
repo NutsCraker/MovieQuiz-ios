@@ -4,12 +4,10 @@
 //
 //  Created by Alexander Farizanov on 04.12.2022.
 //
-
-import Foundation
 import UIKit
 
 class AlertPresenter {
-    weak var viewController : UIViewController?
+    private weak var viewController : UIViewController?
     init(viewController: UIViewController?)
     {
         self.viewController = viewController

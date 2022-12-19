@@ -4,9 +4,7 @@
 //
 //  Created by Alexander Farizanov on 05.12.2022.
 //
-
 import Foundation
-
 
 struct GameRecord: Codable {
     let correct: Int

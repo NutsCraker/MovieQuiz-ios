@@ -7,7 +7,7 @@
 
 import Foundation
 
-class QuestionFactory: QuestionFactoryProtocol {
+final class QuestionFactory: QuestionFactoryProtocol {
 
   
     // MARK: - Private Properties
@@ -31,7 +31,7 @@ class QuestionFactory: QuestionFactoryProtocol {
     
     // MARK: - Properties
     
-    weak var delegate: QuestionFactoryDelegate?
+    private weak var delegate: QuestionFactoryDelegate?
     
     // MARK: - Init
     init(moviesLoader: MoviesLoading, delegate: QuestionFactoryDelegate? ) {

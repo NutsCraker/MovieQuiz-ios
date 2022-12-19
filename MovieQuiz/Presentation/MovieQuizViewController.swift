@@ -8,11 +8,11 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
     private var currentQuestion: QuizQuestion?
     private var questionFactory: QuestionFactoryProtocol? = nil
     private var statisticService: StatisticService?
-    @IBOutlet private var imageView: UIImageView!
-    @IBOutlet private var textLabel: UILabel!
-    @IBOutlet private var counterLabel: UILabel!
+    @IBOutlet private weak var imageView: UIImageView!
+    @IBOutlet private weak var textLabel: UILabel!
+    @IBOutlet private weak var counterLabel: UILabel!
     @IBOutlet private weak var noButton: UIButton!
-    @IBOutlet private weak var YesButton: UIButton!
+    @IBOutlet private weak var yesButton: UIButton!
     @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
     
     @IBAction private func yesButtonClicked(_ sender: Any)
@@ -130,11 +130,11 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         else {
             imageView.layer.borderColor = UIColor.ypRed.cgColor
         }
-        self.YesButton.isEnabled = false
+        self.yesButton.isEnabled = false
         self.noButton.isEnabled = false
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0) { [weak self] in
             guard let self = self else { return }
-            self.YesButton.isEnabled = true
+            self.yesButton.isEnabled = true
             self.noButton.isEnabled = true
             self.imageView.layer.borderWidth = 0
             self.showNextQuestionOrResults()
