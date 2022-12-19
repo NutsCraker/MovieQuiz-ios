@@ -13,7 +13,7 @@ final class QuestionFactory: QuestionFactoryProtocol {
     // MARK: - Private Properties
     
     private let moviesLoader: MoviesLoading
-    
+    //private var errorMessage: ErrorMessage
     private var movies: [MostPopularMovie] = []
     
 //    private var question: [QuizQuestion] = [
@@ -37,6 +37,7 @@ final class QuestionFactory: QuestionFactoryProtocol {
     init(moviesLoader: MoviesLoading, delegate: QuestionFactoryDelegate? ) {
            self.moviesLoader = moviesLoader
            self.delegate = delegate
+        //   self.errorMessage = errorMessage
        }
     
     // MARK: - Methods
@@ -81,8 +82,14 @@ final class QuestionFactory: QuestionFactoryProtocol {
                 guard let self = self else { return }
                 switch result {
                 case .success(let mostPopularMovies):
-                    self.movies = mostPopularMovies.items
-                    self.delegate?.didLoadDataFromServer()
+                    if mostPopularMovies.errorMessage != ""{
+                        self.delegate?.didFailToLoadData(with: NetworkError.serverError)
+                    }
+                    else
+                    {
+                        self.movies = mostPopularMovies.items
+                        self.delegate?.didLoadDataFromServer()
+                    }
                 case .failure(_):
                     DispatchQueue.main.async { [weak self] in
                         guard let self = self else { return }
