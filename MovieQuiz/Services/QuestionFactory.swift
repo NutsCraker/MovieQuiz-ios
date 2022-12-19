@@ -82,7 +82,7 @@ final class QuestionFactory: QuestionFactoryProtocol {
                 guard let self = self else { return }
                 switch result {
                 case .success(let mostPopularMovies):
-                    if mostPopularMovies.errorMessage != ""{
+                    if mostPopularMovies.errorMessage != ""{ // Если не пустое поле - то значит все равно что --то нитак!
                         self.delegate?.didFailToLoadData(with: NetworkError.serverError)
                     }
                     else
