@@ -38,7 +38,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         }        
     }
     func didFailToLoadData(with error: Error) {
-        showNetworkError(messange: error.localizedDescription) // возьмём в качестве сообщения описание ошибки
+        showNetworkError(messange: error.localizedDescription) 
     }
     
     func didLoadDataFromServer() {

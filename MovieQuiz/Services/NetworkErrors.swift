@@ -18,19 +18,3 @@ enum NetworkError: Error {
     case internetError
     case errorDecode
 }
-/*
-// MARK: - extension NetworkError conform LocalizedError
-extension NetworkError: LocalizedError {
-    
-        var errorDescription: String {
-            switch self {
-            case .serverError:
-                return constants.ErrorMessage.serverError
-            case .internetError:
-                return ErrorMessage.internetError
-            case .errorDecode:
-                return ErrorMessage.eroorDecode
-            }
-        }
-    }
-*/
