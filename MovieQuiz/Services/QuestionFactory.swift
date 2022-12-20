@@ -13,22 +13,8 @@ final class QuestionFactory: QuestionFactoryProtocol {
     // MARK: - Private Properties
     
     private let moviesLoader: MoviesLoading
-    //private var errorMessage: ErrorMessage
     private var movies: [MostPopularMovie] = []
-    
-//    private var question: [QuizQuestion] = [
-//        QuizQuestion(image: "The Godfather", text: "Рейтинг этого фильма больше чем 6?", correctAnswer: true),
-//        QuizQuestion(image: "The Dark Knight", text: "Рейтинг этого фильма больше чем 6?", correctAnswer: true),
-//        QuizQuestion(image: "Kill Bill", text: "Рейтинг этого фильма больше чем 6?", correctAnswer: true),
-//        QuizQuestion(image: "The Avengers", text: "Рейтинг этого фильма больше чем 6?", correctAnswer: true),
-//        QuizQuestion(image: "Deadpool", text: "Рейтинг этого фильма больше чем 6?", correctAnswer: true),
-//        QuizQuestion(image: "The Green Knight", text: "Рейтинг этого фильма больше чем 6?", correctAnswer: true),
-//        QuizQuestion(image: "Old", text: "Рейтинг этого фильма больше чем 6?", correctAnswer: false),
-//        QuizQuestion(image: "The Ice Age Adventures of Buck Wild", text: "Рейтинг этого фильма больше чем 6?", correctAnswer: false),
-//        QuizQuestion(image: "Tesla", text: "Рейтинг этого фильма больше чем 6?", correctAnswer: false),
-//        QuizQuestion(image: "Vivarium", text: "Рейтинг этого фильма больше чем 6?", correctAnswer: false)
-//    ]
-    
+        
     // MARK: - Properties
     
     private weak var delegate: QuestionFactoryDelegate?
@@ -37,7 +23,6 @@ final class QuestionFactory: QuestionFactoryProtocol {
     init(moviesLoader: MoviesLoading, delegate: QuestionFactoryDelegate? ) {
            self.moviesLoader = moviesLoader
            self.delegate = delegate
-        //   self.errorMessage = errorMessage
        }
     
     // MARK: - Methods
@@ -56,7 +41,7 @@ final class QuestionFactory: QuestionFactoryProtocol {
             } catch {
                 DispatchQueue.main.async { [weak self] in
                     guard let self = self else { return }
-                    self.delegate?.didFailToLoadData(with: NetworkError.serverError)
+                    self.delegate?.didFailToLoadData(with: NetworkError.errorDecode)
                 }
             }
             
@@ -83,7 +68,7 @@ final class QuestionFactory: QuestionFactoryProtocol {
                 switch result {
                 case .success(let mostPopularMovies):
                     if mostPopularMovies.errorMessage != ""{ // Если не пустое поле - то значит все равно что --то нитак!
-                        self.delegate?.didFailToLoadData(with: NetworkError.serverError)
+                        self.delegate?.didFailToLoadData(with: NetworkError.somethingWrong)
                     }
                     else
                     {

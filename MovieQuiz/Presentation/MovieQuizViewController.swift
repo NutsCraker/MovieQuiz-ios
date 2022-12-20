@@ -38,7 +38,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         }        
     }
     func didFailToLoadData(with error: Error) {
-        showNetworkError(messange: error.localizedDescription) 
+        showNetworkError(message: error.localizedDescription)
     }
     
     func didLoadDataFromServer() {
@@ -68,10 +68,10 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
         questionFactory?.loadData()
         showLoadingIndicator()
     }
-    private func showNetworkError(messange: String) {
+    private func showNetworkError(message: String) {
             hideLoadingIndicator()
             
-        let alertData = AlertModel(title: "Ошибка", message: messange, buttonText: "Попробовать еще раз")
+        let alertData = AlertModel(title: "Ошибка", message: message, buttonText: "Попробовать еще раз")
         {  [weak self] _ in
                 guard let self = self else { return }
                 self.questionFactory?.loadData()
