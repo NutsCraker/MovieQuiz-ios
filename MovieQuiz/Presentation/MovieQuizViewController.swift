@@ -87,6 +87,7 @@ final class MovieQuizViewController: UIViewController, QuestionFactoryDelegate {
             else {
                 return
             }
+            
             let messageResult = """
                 Вы результат: \(correctAnswers)/\(questionsAmount)
                 Количество сыгранных квизов: \(gameCount)
