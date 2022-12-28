@@ -52,7 +52,6 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
     func switchToNextQuestion() {
         currentQuestionIndex += 1
     }
-    // Button click
     
     func yesButtonClicked() {
         didAnswer(isYes: true)
@@ -71,7 +70,6 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
         viewController?.showAnswerResult(isCorrect: givenAnswer == correctAnswer)
         
     }
-    
     
     func didReceiveNextQuestion(question: QuizQuestion?) {
         guard let question = question else {
