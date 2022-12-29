@@ -99,7 +99,7 @@ final class MovieQuizPresenter: QuestionFactoryDelegate {
                                                             self.resetQuestionIndex()
                                                             self.questionFactory?.requestNextQuestion()
                                             })
-            alertPresenter?.show(alertModel: alertModelResult)
+            alertPresenter?.show(result: alertModelResult)
         } else {
             self.switchToNextQuestion()
             questionFactory?.requestNextQuestion()
