@@ -5,19 +5,19 @@
 //  Created by Alexander Farizanov on 27.12.2022.
 //
 import UIKit
+
 final class MovieQuizPresenter: QuestionFactoryDelegate {
     
-    let questionAmount = 10
-    
-    var correctAnswers = 0
-    private var questionFactory: QuestionFactoryProtocol?
+    private let questionAmount = 10
+    private var correctAnswers = 0
+    var questionFactory: QuestionFactoryProtocol?
     var statisticService: StatisticService?
     var alertPresenter: AlertPresenter?
-    var currentQuestion: QuizQuestion?
+    private var currentQuestion: QuizQuestion?
     private weak var viewController: MovieQuizViewController?
     private var currentQuestionIndex = 0
     
-    init( viewController: MovieQuizViewController) {
+    init(viewController: MovieQuizViewController) {
         self.viewController = viewController
         questionFactory = QuestionFactory(moviesLoader: MoviesLoader(), delegate: self)
         questionFactory?.loadData()

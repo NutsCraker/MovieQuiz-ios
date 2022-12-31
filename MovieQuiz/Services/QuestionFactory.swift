@@ -8,7 +8,6 @@
 import Foundation
 
 final class QuestionFactory: QuestionFactoryProtocol {
-
   
     // MARK: - Private Properties
     
