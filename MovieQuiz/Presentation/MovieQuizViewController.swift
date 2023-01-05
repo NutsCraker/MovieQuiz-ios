@@ -1,6 +1,6 @@
 import UIKit
 
-final class MovieQuizViewController: UIViewController, AlertPresenterDelegate {
+final class MovieQuizViewController: UIViewController, AlertPresenterDelegate, MovieQuizViewControllerProtocol {
 
     // MARK: - Lifecycle
     @IBOutlet weak private var imageView: UIImageView!
@@ -9,7 +9,6 @@ final class MovieQuizViewController: UIViewController, AlertPresenterDelegate {
     @IBOutlet weak private var yesButton: UIButton!
     @IBOutlet weak private var noButton: UIButton!
 
-    //private var questionFactory: QuestionFactoryProtocol?
     private var alertPresenter: AlertPresenter?
     private var presenter: MovieQuizPresenter!
     private var statisticService: StatisticService = StatisticServiceImplementation()
@@ -42,7 +41,7 @@ final class MovieQuizViewController: UIViewController, AlertPresenterDelegate {
     }
     
     func showAnswerResult(isCorrect: Bool){
-        imageView.layer.masksToBounds = true // даём разрешение на рисование рамки
+        imageView.layer.masksToBounds = true 
         imageView.layer.borderWidth = 8
         imageView.layer.cornerRadius = 20
         if isCorrect {
