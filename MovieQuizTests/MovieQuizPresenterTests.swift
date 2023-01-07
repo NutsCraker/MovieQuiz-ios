@@ -11,6 +11,10 @@ import XCTest
 @testable import MovieQuiz
 
 final class MovieQuizControllerProtocolMock: MovieQuizViewControllerProtocol {
+    func showAnswerResult(isCorrect: Bool) {
+    
+    }
+    
   func showLoadingIndicator() {
     }
     
@@ -25,10 +29,7 @@ final class MovieQuizControllerProtocolMock: MovieQuizViewControllerProtocol {
     
     func show(quiz result: QuizResultsViewModel) {
     }
-    
-    func highlightImageBorder(isCorrect: Bool) {
-    
-    }
+
  }
 
 class MovieQuizPresenterTests: XCTestCase {
